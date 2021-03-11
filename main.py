@@ -58,7 +58,7 @@ class BoidSpace:
     def __init__(self, x, y):
         self.size = np.array([x,y]) #tuple describing the size of the boid space e.g. (10,10) wsould be a 10x10 grid
         self.boids = [] # lift of boids in the boid space
-        self.boidVision = 100.0
+        self.boidVision = 150.0
         self.boidSpeed = 0.4
         self.rotationSpeed = 50
         self.delta_time = 0.1
@@ -83,7 +83,12 @@ class BoidSpace:
         rotation = np.random.random_sample([1,2])
         rotation = rotation / np.linalg.norm(rotation) #normalise the rotation vector to be of size 1
         
-        b = Boid(self, position, rotation, self.boidSpeed, self.boidVision, self.rotationSpeed)
+        #add random variance of 80-120% of speed value
+        randomSpeedModifier = (.8 + np.random.rand()/2.5)
+        randomRotationModifier = (.8 + np.random.rand()/2.5)
+        randomVisionModifier = (.8 + np.random.rand()/2.5)
+
+        b = Boid(self, position, rotation, self.boidSpeed * randomSpeedModifier, self.boidVision * randomVisionModifier, self.rotationSpeed * randomRotationModifier)
         self.boids.append(b)
         return b
 
