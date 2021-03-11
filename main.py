@@ -8,10 +8,12 @@ class Color:
         'black': (40,40,40),
         'blue': (119, 158, 203),
         'red': (255, 105, 96),
-        'green': (119, 221, 119)
+        'green': (119, 221, 119),
+        'purple': (199, 206, 238),
+        'yellow': (253, 253, 150)
     }
 
-    foreground = [colors['blue'], colors['white'], colors['red'], colors['green']]
+    foreground = [colors['blue'], colors['white'], colors['red'], colors['green'], colors['purple'], colors['yellow']]
 
     def getRandomForegroundColor():
         i = np.random.randint(0, len(Color.foreground))
@@ -58,9 +60,9 @@ class BoidSpace:
         self.boids = [] # lift of boids in the boid space
         self.boidVision = 100.0
         self.boidSpeed = 0.4
-        self.rotationSpeed = 20
+        self.rotationSpeed = 50
         self.delta_time = 0.1
-        self.fps = 24
+        self.fps = 60
 
         self.alignmentFactor = 1
         self.cohesionFactor = 1
@@ -207,6 +209,7 @@ if __name__ == "__main__":
 
     width = 1280
     height = 720
+    boidSize = 20
     disp = Display(width,height)
     space = BoidSpace(width,height)
     for x in range(0,50):
@@ -225,7 +228,7 @@ if __name__ == "__main__":
         disp.Clear()
         #draw them
         for boid in space.boids:
-            disp.drawBoid(boid.position, boid.rotation, 10, boid.color)
+            disp.drawBoid(boid.position, boid.rotation, boidSize, boid.color)
 
 
         pygame.display.update()
